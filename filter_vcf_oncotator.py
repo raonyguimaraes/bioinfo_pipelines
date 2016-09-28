@@ -34,6 +34,6 @@ snpeff_path = "/home/ubuntu/projects/programs/snpeff/snpEff"
 #extract vcf from gvcf
 print('extract vcf from gvcf')
 #gzip -dc ../../input/WGC081270U.g.vcf.gz | ../../programs/gvcftools-0.16/bin/extract_variants | bgzip -c > WGC081270U.vcf.gz
-command = """gzip -dc %s | %s/extract_variants > %s.variants.vcf""" % (vcf_file, gvcftools_path, base_name)
+command = """cat %s | %s/extract_variants > %s.variants.vcf""" % (vcf_file, gvcftools_path, base_name)
 output = call(command, shell=True)
 print(output)
