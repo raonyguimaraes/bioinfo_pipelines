@@ -1,4 +1,3 @@
-#auto scaling version of bam metrics
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -9,9 +8,13 @@ import logging
 import argparse
 import datetime
 
+parser = OptionParser()
 
 parser.add_argument("-i", "--input", help="BAM files", nargs='+')
 parser.add_argument("-n", "--cores", help="Number of Cores to use")
+
+(options, args) = parser.parse_args()
+
 
 bam_files = args.input
 n_cores = int(args.cores)
