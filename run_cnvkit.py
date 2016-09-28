@@ -33,6 +33,9 @@ log_file = "%s/cnvkit.run.%s.log.txt" % (output_folder, str(datetime.datetime.no
 
 logging.basicConfig(filename=log_file,level=logging.DEBUG)
 
+start_time = datetime.datetime.now()
+logging.info("Start time: "+str(start_time))
+
 def run_command(command):
     process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     while True:
@@ -45,7 +48,6 @@ def run_command(command):
     rc = process.poll()
     return rc
 
-# command = "python cnvkit.py -i %s" % (bam_file)
 
 command = """cnvkit.py batch %s -n -t %s -f %s \
     --access %s \
@@ -57,3 +59,8 @@ command = """cnvkit.py batch %s -n -t %s -f %s \
 run_command(command)
 print command
 # return x*x
+
+# os.remove(bam_file)
+finish_time = datetime.datetime.now()
+logging.info("Finish time: "+str(finish_time))
+logging.info("Time Taken: "+str(finish_time-start_time))
