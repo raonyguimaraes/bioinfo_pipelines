@@ -22,8 +22,13 @@ n_cores = int(args.cores)
 target = '/home/ubuntu/projects/input/bed/SureSelect_Human_Exon_V5_merge.withoutchr.bed'
 human_reference = "/home/ubuntu/projects/input/grch37/d5/hs37d5.fa" #86 features
 access = "/home/ubuntu/projects/input/cnvkit/access-5k-mappable.hg19.withoutchr.bed"
+ref_flat = "/home/ubuntu/projects/input/cnvkit/refFlat.withoutchr.txt"
 
-log_file = "cnvkit.run.%s.log.txt" % (str(datetime.datetime.now()))
+output = "/home/ubuntu/projects/output/cnvkit"
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+log_file = "%s/cnvkit.run.%s.log.txt" % (output, str(datetime.datetime.now()))
 
 logging.basicConfig(filename=log_file,level=logging.DEBUG)
 
@@ -43,9 +48,10 @@ def run_command(command):
 
 command = """cnvkit.py batch %s -n -t %s -f %s \
     --access %s \
-    --output-reference my_flat_reference.cnn -d example2/ \
-    -p %s \
-    """ % (" ".join(bam_files), target, human_reference, access, n_cores)
+    --output-reference %s/my_flat_reference.cnn -d %s/cnvkit_run/ \
+    --annotate %s \
+    -p %s --diagram --scatter \
+    """ % (" ".join(bam_files), target, human_reference, access, output, output, ref_flat, n_cores)
 
 run_command(command)
 print command
