@@ -29,8 +29,8 @@ output_folder = "/home/ubuntu/projects/output/cnvkit"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
-log_file = "%s/cnvkit.run.%s.log.txt" % (output_folder, str(datetime.datetime.now()))
-
+log_file = "%s/cnvkit.run.%s.log.txt" % (output_folder, str(datetime.datetime.now()).replace(' ', '_'))
+# log_file = "test"
 logging.basicConfig(filename=log_file,level=logging.DEBUG)
 
 start_time = datetime.datetime.now()
@@ -56,9 +56,16 @@ command = """cnvkit.py batch %s -n -t %s -f %s \
     -p %s --diagram --scatter \
     """ % (" ".join(bam_files), target, human_reference, access, output_folder, output_folder, ref_flat, n_cores)
 
-run_command(command)
+# run_command(command)
 print command
 # return x*x
+for bam_file in bam_files:
+    base=os.path.basename(bam_file)
+    base_name = os.path.splitext(base)[0].split('.')[0]
+    print(base_name)
+    command = """cnvkit.py export vcf %s/cnvkit_run/%s.cns -y -i "%s" -o %s/cnvkit_run/%s.cnv.vcf""" % (output_folder, base_name, base_name, output_folder, base_name)
+    # print(command)
+    run_command(command)
 
 # os.remove(bam_file)
 finish_time = datetime.datetime.now()
