@@ -25,7 +25,7 @@ human_reference = "/home/ubuntu/projects/input/grch37/d5/hs37d5.fa" #86 features
 access = "/home/ubuntu/projects/input/cnvkit/access-5k-mappable.hg19.withoutchr.bed"
 ref_flat = "/home/ubuntu/projects/input/cnvkit/refFlat.withoutchr.txt"
 
-output = "/home/ubuntu/projects/output/cnvkit"
+output_folder = "/home/ubuntu/projects/output/cnvkit"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
@@ -52,7 +52,7 @@ command = """cnvkit.py batch %s -n -t %s -f %s \
     --output-reference %s/my_flat_reference.cnn -d %s/cnvkit_run/ \
     --annotate %s \
     -p %s --diagram --scatter \
-    """ % (" ".join(bam_files), target, human_reference, access, output, output, ref_flat, n_cores)
+    """ % (" ".join(bam_files), target, human_reference, access, output_folder, output_folder, ref_flat, n_cores)
 
 run_command(command)
 print command
