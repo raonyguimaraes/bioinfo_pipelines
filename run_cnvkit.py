@@ -44,8 +44,8 @@ def run_command(command):
 command = """cnvkit.py batch %s -n -t %s -f %s \
     --access %s \
     --output-reference my_flat_reference.cnn -d example2/ \
-    -p 0 \
-    """ % (" ".join(bam_files), target, human_reference, access)
+    -p %s \
+    """ % (" ".join(bam_files), target, human_reference, access, n_cores)
 
 run_command(command)
 print command
