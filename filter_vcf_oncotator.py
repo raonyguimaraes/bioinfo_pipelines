@@ -42,5 +42,6 @@ command = """cat %s | %s/extract_variants > %s.variants.vcf""" % (vcf_file, gvcf
 
 #filter good quality
 command = "%s/bcftools filter -T %s -i'QUAL>100 && FMT/DP>100' %s.variants.vcf > %s.filtered.exons.q100.dp100.vcf" % (bcftools_path, target_file, base_name, base_name)
+print(command)
 output = call(command, shell=True)
 print(output)
