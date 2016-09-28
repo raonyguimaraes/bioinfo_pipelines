@@ -42,10 +42,26 @@ command = """cat %s | %s/extract_variants > %s.variants.vcf""" % (vcf_file, gvcf
 
 #filter good quality
 command = "%s/bcftools filter -T %s -i'QUAL>100 && FMT/DP>100' %s.variants.vcf > %s.filtered.exons.q100.dp100.vcf" % (bcftools_path, target_file, base_name, base_name)
-output = call(command, shell=True)
-print(output)
+# output = call(command, shell=True)
+# print(output)
 
 #filter good quality
 command = "%s/bcftools filter -T %s -i'QUAL>50 && FMT/DP>50' %s.variants.vcf > %s.filtered.exons.q50.dp50.vcf" % (bcftools_path, target_file, base_name, base_name)
-output = call(command, shell=True)
-print(output)
+# output = call(command, shell=True)
+# print(output)
+
+#clean_nonref
+vcf_reader = open("%s.filtered.exons.q50.dp50.vcf")
+vcf_writer = open("%s.oncotator.vcf", 'w')
+for line in vcf_reader:
+    print(line)
+    if line.startswith("#"):
+        vcf_writer.writelines(line)
+    else:
+        variant = line.split('\t')
+        alt = variant[4]
+        alt = alt.replace(',<NON_REF>', '')
+        variant[4] = alt
+        vcf_writer.writelines("\t".join(variant))
+
+vcf_writer.close()
