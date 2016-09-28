@@ -29,7 +29,7 @@ output_folder = "/home/ubuntu/projects/output/cnvkit"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
-log_file = "%s/cnvkit.run.%s.log.txt" % (output, str(datetime.datetime.now()))
+log_file = "%s/cnvkit.run.%s.log.txt" % (output_folder, str(datetime.datetime.now()))
 
 logging.basicConfig(filename=log_file,level=logging.DEBUG)
 
