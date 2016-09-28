@@ -8,12 +8,12 @@ import logging
 import argparse
 import datetime
 
-parser = OptionParser()
+parser = argparse.ArgumentParser()
 
 parser.add_argument("-i", "--input", help="BAM files", nargs='+')
 parser.add_argument("-n", "--cores", help="Number of Cores to use")
 
-(options, args) = parser.parse_args()
+args = parser.parse_args()
 
 
 bam_files = args.input
