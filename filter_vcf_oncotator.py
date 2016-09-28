@@ -14,10 +14,12 @@ from subprocess import call
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-i", "--input", help="VCF file")
+parser.add_argument("-t", "--target", help="Target File")
 
 args = parser.parse_args()
  
 vcf_file = args.input
+target_file = args.target
 
 base=os.path.basename(vcf_file)
 base_name = os.path.splitext(base)[0]
@@ -35,5 +37,10 @@ snpeff_path = "/home/ubuntu/projects/programs/snpeff/snpEff"
 print('extract vcf from gvcf')
 #gzip -dc ../../input/WGC081270U.g.vcf.gz | ../../programs/gvcftools-0.16/bin/extract_variants | bgzip -c > WGC081270U.vcf.gz
 command = """cat %s | %s/extract_variants > %s.variants.vcf""" % (vcf_file, gvcftools_path, base_name)
+# output = call(command, shell=True)
+# print(output)
+
+#filter good quality
+command = "%s/bcftools filter -T %s -i'QUAL>100 && FMT/DP>100' %s.variants.vcf > %s.filtered.exons.q100.dp100.vcf" % (bcftools_path, target_file, base_name, base_name)
 output = call(command, shell=True)
 print(output)
