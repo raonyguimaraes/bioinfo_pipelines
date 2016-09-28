@@ -54,7 +54,7 @@ command = "%s/bcftools filter -T %s -i'QUAL>50 && FMT/DP>50' %s.variants.vcf > %
 vcf_reader = open("%s.filtered.exons.q50.dp50.vcf" % (base_name))
 vcf_writer = open("%s.oncotator.vcf", 'w')
 for line in vcf_reader:
-    print(line)
+    # print(line)
     if line.startswith("#"):
         vcf_writer.writelines(line)
     else:
