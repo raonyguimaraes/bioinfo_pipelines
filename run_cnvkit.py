@@ -15,7 +15,7 @@ parser.add_argument("-i", "--input", help="BAM files", nargs='+')
 parser.add_argument("-n", "--cores", help="Number of Cores to use")
 
 args = parser.parse_args()
-
+ 
 
 bam_files = args.input
 n_cores = int(args.cores)
