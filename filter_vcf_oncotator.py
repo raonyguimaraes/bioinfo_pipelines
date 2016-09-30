@@ -50,12 +50,12 @@ command = "%s/bcftools filter -T %s -i'QUAL>100 && FMT/DP>100' %s.variants.vcf >
 # output = call(command, shell=True)
 # print(output)
 #filter good quality
-command = "%s/bcftools filter -i'QUAL>50 && FMT/DP>50' %s.variants.vcf > %s.filtered.exons.q50.dp50.vcf" % (bcftools_path, base_name, base_name)
+command = "%s/bcftools filter -i'QUAL>30 && FMT/DP>10' %s.variants.vcf > %s.filtered.exons.q30.dp10.vcf" % (bcftools_path, base_name, base_name)
 output = call(command, shell=True)
 print(output)
 
 #clean_nonref
-vcf_reader = open("%s.filtered.exons.q50.dp50.vcf" % (base_name))
+vcf_reader = open("%s.filtered.exons.q30.dp10.vcf" % (base_name))
 vcf_writer = open("%s.oncotator.vcf" % (base_name), 'w')
 for line in vcf_reader:
     # print(line)
