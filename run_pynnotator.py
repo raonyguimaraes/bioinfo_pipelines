@@ -50,7 +50,7 @@ for line in vcf_reader:
         variant[4] = alt
         #check genotypes
         genotype = variant[-1].split(':')[0]
-        
+        print(genotype)
 
         vcf_writer.writelines("\t".join(variant))
 
