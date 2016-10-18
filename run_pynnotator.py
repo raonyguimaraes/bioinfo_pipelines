@@ -54,7 +54,7 @@ for line in vcf_reader:
         #check genotypes
         genotype = variant[-1].split(':')[0].split('/')
         
-        print(genotype)
+        # print(genotype)
 
         genotype_check = True
         for item in genotype:
