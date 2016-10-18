@@ -40,7 +40,10 @@ for line in vcf_reader:
         vcf_writer.writelines(line)
     else:
         variant = line.split('\t')
+        
+        ref = variant[3]
         alt = variant[4].split(',')
+
         new_alt = []
         for item in alt:
             if item != '<NON_REF>':
@@ -49,11 +52,19 @@ for line in vcf_reader:
         alt = ','.join(new_alt)
         variant[4] = alt
         #check genotypes
-        genotype = variant[-1].split(':')[0]
+        genotype = variant[-1].split(':')[0].split('/')
+        
         print(genotype)
 
-        vcf_writer.writelines("\t".join(variant))
+        genotype_check = True
+        for item in genotype:
+            item = int(item)
+            if item > 0:
+                if item > len(new_alt):
+                    genotype_check = False
 
+        if genotype_check:
+            vcf_writer.writelines("\t".join(variant))
 
 vcf_writer.close()
 
